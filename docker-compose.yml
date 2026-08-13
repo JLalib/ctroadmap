@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  ctroadmap:
+    image: ghcr.io/noobcity99/ctroadmap:beta
+    container_name: ctroadmap
+    restart: unless-stopped
+    ports:
+      - "8088:3000"
+    volumes:
+      - ctroadmap_data:/app/data
+    environment:
+      - NODE_ENV=production
+volumes:
+  ctroadmap_data:
