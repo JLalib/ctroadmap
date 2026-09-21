@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   ctroadmap:
     image: ghcr.io/noobcity99/ctroadmap:beta
@@ -10,5 +11,6 @@ services:
       - ctroadmap_data:/app/data
     environment:
       - NODE_ENV=production
+
 volumes:
   ctroadmap_data:

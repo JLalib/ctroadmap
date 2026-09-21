@@ -4,11 +4,15 @@
 [![Docker](https://img.shields.io/badge/Docker-ghcr.io%2Fnoobcity99%2Fctroadmap-2496ED?logo=docker)](https://github.com/NoobCity99/CTRoadmap/pkgs/container/ctroadmap)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+---
+
 ## 📋 Descripción general
 
 **CTRoadmap** es una herramienta web open source diseñada específicamente para documentar y visualizar la topología completa de infraestructura homelab, permitiendo crear diagramas interactivos con soporte para nodos, servicios, containers, volúmenes, scripts y relaciones tipadas sin necesidad de ejecutar comandos en la infraestructura (**documentación pura**).
 
 Es la alternativa moderna a draw.io/Visio especializada en homelabs y infraestructura técnica. Desarrollada en **Node.js + React**, ligera, multi-arquitectura (amd64, arm64) y bajo licencia **MIT**.
+
+---
 
 ## ✨ Características principales
 
@@ -22,11 +26,12 @@ Es la alternativa moderna a draw.io/Visio especializada en homelabs y infraestru
 - ⌨️ **Hotkeys productivos** — `Ctrl/Cmd+S` save, `Ctrl/Cmd+D` duplicate, `Delete` elimina
 - 📦 **Export/Import JSON** — Portabilidad, backup diagrama, versioning via git
 - 📱 **Responsive design** — Funciona en mobile y desktop
-- 📄 **Documentación integrada** — Flow steps, check commands (documentación pura, sin ejecución)
-- 🛣️ **Routing connectors avanzado** — Through tiles o avoid, visualización neta de relaciones
-- ☁️ **Zero dependencies ejecutables** — Sin SSH, Docker calls, live checks. Local browser-based
-- 🐳 **Docker easy deploy** — Multiarch (amd64, arm64), imagen ligera ~50-200 MB RAM
-- 🟢 **MIT open source** — Código abierto, beta version, comunidad activa en desarrollo
+- 🛡️ **Documentación-only** — Cero ejecución (sin SSH, Docker calls, live checks)
+- 🏠 **Local browser-based** — No sync cloud sin config, datos 100% locales
+- 🐳 **Multiarch Docker** — amd64, arm64, deploy trivial
+- 📄 **MIT open source** — Código abierto, beta version, comunidad activa
+
+---
 
 ## 📋 Requisitos del sistema
 
@@ -39,6 +44,8 @@ Es la alternativa moderna a draw.io/Visio especializada en homelabs y infraestru
 - curl (para instalador script)
 - Navegador moderno (Chrome, Firefox, Safari, Edge)
 - Opcional: git (para versionado diagrama)
+
+---
 
 ## 🐳 Instalación
 
@@ -69,6 +76,7 @@ mkdir -p ctroadmap-beta
 cd ctroadmap-beta
 cat > docker-compose.yml << 'EOF'
 version: '3.8'
+
 services:
   ctroadmap:
     image: ghcr.io/noobcity99/ctroadmap:beta
@@ -80,16 +88,18 @@ services:
       - ctroadmap_data:/app/data
     environment:
       - NODE_ENV=production
+
 volumes:
   ctroadmap_data:
 EOF
+
 docker compose up -d
 ```
 
 ### Acceder (primer uso)
 
 ```
-http://localhost:8088  →  CTRoadmap (dibujar infraestructura)
+http://localhost:8088
 ```
 
 ### Verificar instalación
@@ -101,13 +111,17 @@ cd ~/ctroadmap-beta
 docker compose up -d
 ```
 
+---
+
 ## ⚙️ Configuración
 
 1. **Puerto externo** — Modifica `"8088:3000"` en `docker-compose.yml` si necesitas otro puerto
 2. **Directorio de datos** — El volumen `ctroadmap_data` persiste el diagrama JSON en `/app/data`
-3. **Variables de entorno** — `NODE_ENV=production` para modo producción
+3. **Variables de entorno** — `NODE_ENV=production` (recomendado para deploy)
 4. **Passcode auth** — Configurable desde la UI en Settings → Passcode (opcional)
-5. **Tema** — Light/Dark mode configurable en Settings → Theme (preferencia guardada en localStorage)
+5. **Tema** — Light/Dark mode configurable desde Settings → Theme (preferencia guardada en localStorage)
+
+---
 
 ## 🚀 Primeros pasos
 
@@ -156,14 +170,18 @@ docker compose up -d
 12. **Cambiar tema (dark mode)**  
     Settings → Theme → Toggle Dark/Light → Preferencia guardada automático.
 
+---
+
 ## 💡 Casos de uso
 
-- 📚 **Documentación infraestructura** — Mapear setup homelab completo, referencia visual, compartir con equipo
-- 🎯 **Planning nuevos servicios** — Diseñar topología antes deploy, iteración visual, decisiones informadas
-- 🔧 **Troubleshooting** — Entender relaciones, seguir flows, root cause diagnosis
-- 👥 **Onboarding equipo** — Mostrar setup visual, training material, menos time explaining
-- 💾 **Backup/recovery planning** — Documentar dependencies, criticality, recovery flows
-- ✅ **Compliance/auditoría** — Documentar infraestructura, mostrar security controls, checks integrados
+- **Documentación infraestructura** — Mapear setup homelab completo, referencia visual, compartir con equipo
+- **Planning nuevos servicios** — Diseñar topología antes deploy, iteración visual, decisiones informadas
+- **Troubleshooting** — Entender relaciones, seguir flows, root cause diagnosis
+- **Onboarding equipo** — Mostrar setup visual, training material, menos time explaining
+- **Backup/recovery planning** — Documentar dependencies, criticality, recovery flows
+- **Compliance/auditoría** — Documentar infraestructura, mostrar security controls, checks integrados
+
+---
 
 ## 🔒 Acceso remoto seguro
 
@@ -177,7 +195,9 @@ ctroadmap.tudominio.com {
 
 **Acceso remoto seguro:** `https://ctroadmap.tudominio.com` con HTTPS automático
 
-> **IMPORTANTE:** Passcode protege acceso. Activar passcode en Settings para proteger diagrama infraestructura (información sensible). Combina con HTTPS para security máximo.
+> **IMPORTANTE:** Passcode protege acceso — Activar passcode en Settings para proteger diagrama infraestructura (información sensible). Combina con HTTPS para security máximo.
+
+---
 
 ## 🛠️ Gestión y mantenimiento
 
@@ -204,12 +224,18 @@ docker start ctroadmap
 ### Gestionar desde directorio instalación
 ```bash
 cd ~/ctroadmap-beta
+
 # Ver logs
 docker compose logs -f
+
 # Reiniciar
-docker compose down && docker compose up -d
+docker compose down
+docker compose up -d
+
 # Actualizar imagen
-docker compose pull && docker compose up -d
+docker compose pull
+docker compose up -d
+
 # Eliminar instalación (desinstalar)
 curl -fsSL https://raw.githubusercontent.com/NoobCity99/CTRoadmap/main/CTR_uninstall.sh | bash
 ```
@@ -217,7 +243,7 @@ curl -fsSL https://raw.githubusercontent.com/NoobCity99/CTRoadmap/main/CTR_unins
 ### Monitorear consumo
 ```bash
 docker stats ctroadmap
-# Típicamente: ~50-200 MB RAM, CPU bajo
+# Típicamente: ~50-100MB RAM, CPU bajo
 ```
 
 ### Versionado diagrama con git
@@ -229,10 +255,12 @@ git commit -m "Initial infrastructure diagram"
 # Cada cambio puede git-tracked para auditoría/history
 ```
 
+---
+
 ## 📝 Licencia
 
-Este proyecto está licenciado bajo la **Licencia MIT** — ver el archivo [LICENSE](LICENSE) para más detalles.
+**MIT License** — Código abierto, libre para uso personal y comercial.
 
 ---
 
-> **Referencia:** Basado en el post ["Cómo instalar CTRoadmap en Docker - Visualización y documentación de infraestructura homelab autohospedada"](https://genbyte.blogspot.com/2026/08/como-instalar-ctroadmap-en-docker.html) de Genbyte.
+> 📖 **Artículo original:** [Cómo instalar CTRoadmap en Docker - Visualización y documentación de infraestructura homelab autohospedada](https://genbyte.blogspot.com/2026/08/como-instalar-ctroadmap-en-docker.html)
